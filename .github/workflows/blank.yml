@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1a2530; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Lluvia de pétalos */
+        #petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .petal {
+            position: absolute;
+            background-color: #ffb7c5;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Estilo de la carta */
+        .card {
+            background-color: #2c3e50;
+            width: 85%;
+            max-width: 380px;
+            padding: 45px 25px;
+            border-radius: 25px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .emoji-top { font-size: 35px; margin-bottom: 10px; }
+        .heart-icon { font-size: 60px; color: white; margin-bottom: 15px; display: block; }
+
+        h1 { font-family: 'Georgia', serif; font-style: italic; font-weight: normal; font-size: 26px; margin-bottom: 10px; }
+        .name { font-size: 26px; font-weight: bold; margin-bottom: 20px; color: #f8bbd0; }
+        
+        p { font-size: 17px; line-height: 1.6; color: #ecf0f1; margin-bottom: 40px; }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            height: 50px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border-radius: 12px;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #si { background-color: #d4af37; color: white; z-index: 11; }
+        #no { 
+            background-color: #e74c3c; 
+            color: white; 
+            position: absolute; 
+            transition: all 0.2s ease;
+        }
+
+        .footer { margin-top: 35px; font-size: 13px; color: #95a5a6; }
+    </style>
+</head>
+<body onclick="playMusic()">
+
+    <audio id="musica" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="petals-container"></div>
+
+    <div class="card">
+        <div class="emoji-top">💖 🌹</div>
+        <span class="heart-icon">♡</span>
+        
+        <h1>¿Quieres ser mi San Valentín?</h1>
+        <div class="name">Pivi💗</div>
+        
+        <p>Cada día a tu lado es un regalo... <br> Y cada beso una razón más para vivir 💘</p>
+
+        <div class="btn-container">
+            <button id="si">¡Sí, quiero! 💖</button>
+            <button id="no">No</button>
+        </div>
+        
+        <div class="footer">Hecho con amor 🌸</div>
+    </div>
+
+    <script>
+        // Generador de pétalos animados
+        const container = document.getElementById('petals-container');
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animationDuration = Math.random() * 3 + 2 + 's';
+            container.appendChild(petal);
+            setTimeout(() => { petal.remove(); }, 5000);
+        }
+        setInterval(createPetal, 300);
+
+        // Lógica del botón que escapa
+        const btnNo = document.getElementById('no');
+        const btnSi = document.getElementById('si');
+
+        btnNo.addEventListener('mouseover', function() {
+            const x = Math.random() * (window.innerWidth - this.clientWidth);
+            const y = Math.random() * (window.innerHeight - this.clientHeight);
+            this.style.position = 'fixed';
+            this.style.left = x + 'px';
+            this.style.top = y + 'px';
+        });
+
+        // Configuración de WhatsApp con tu número
+        btnSi.addEventListener('click', function() {
+            const mensaje = "¡SÍ, ACEPTO! 💖 Me encantó la sorpresa, no me esperaba algo tan lindo. Me haces muy feliz y claro que quiero ser tu San Valentín hoy y siempre. ✨🌹";
+            const telefono = "59175595952"; 
+            window.location.href = https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)};
+        });
+
+        // Activar música al tocar cualquier parte de la pantalla
+        function playMusic() {
+            const audio = document.getElementById('musica');
+            audio.play().catch(error => console.log("Esperando interacción del usuario..."));
+        }
+    </script>
+</body>
+</html>
+    
